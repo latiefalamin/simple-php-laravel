@@ -215,6 +215,79 @@
             color: var(--text-secondary);
         }
 
+        /* Auth & Alerts */
+        .alert-success {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #34d399;
+            font-size: 0.95rem;
+            display: inline-block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .auth-section {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .auth-user {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-user strong {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            display: inline-block;
+            text-decoration: none;
+            padding: 0.875rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-register {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 20px rgba(129, 140, 248, 0.3);
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(129, 140, 248, 0.5);
+        }
+
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-1px);
+        }
+
         /* Footer */
         footer {
             margin-top: 2rem;
@@ -271,6 +344,12 @@
 
     <div class="container">
         <div class="card">
+            @if (session('success'))
+                <div class="alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="badge">
                 <span class="badge-dot"></span>
                 Status: Setup Completed
@@ -278,6 +357,23 @@
 
             <h1>Hello World</h1>
             <p class="subtitle">Aplikasi Laravel PHP Anda telah berhasil diinisialisasi dan siap dideploy menggunakan container Docker.</p>
+
+            <div class="auth-section">
+                @auth
+                    <div class="auth-user">
+                        Terautentikasi sebagai: <strong>{{ auth()->user()->name }}</strong>
+                    </div>
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline-block; margin-top: 0.5rem;">
+                        @csrf
+                        <button type="submit" class="btn-action btn-logout">Keluar (Logout)</button>
+                    </form>
+                @else
+                    <div class="auth-user" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Silakan daftarkan akun baru Anda untuk mencoba fitur registrasi database MySQL.
+                    </div>
+                    <a href="{{ route('register') }}" class="btn-action btn-register">Daftar Akun Baru</a>
+                @endauth
+            </div>
 
             <div class="status-grid">
                 <div class="status-item">
