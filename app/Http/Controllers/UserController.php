@@ -5,19 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the registered users.
      */
-    public function index()
+    public function index(): View
     {
-        if (!Auth::check()) {
-            abort(404);
-        }
-
-        $users = User::orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -25,12 +23,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified user.
      */
-    public function edit($id)
+    public function edit($id): View
     {
-        if (!Auth::check()) {
-            abort(404);
-        }
-
         $user = User::findOrFail($id);
 
         return view('users.edit', compact('user'));
@@ -39,12 +33,8 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
-        if (!Auth::check()) {
-            abort(404);
-        }
-
         $user = User::findOrFail($id);
 
         $validated = $request->validate([
@@ -70,12 +60,8 @@ class UserController extends Controller
     /**
      * Remove the specified user from storage.
      */
-    public function delete($id)
+    public function delete($id): RedirectResponse
     {
-        if (!Auth::check()) {
-            abort(404);
-        }
-
         // Prevent self deletion
         if ($id == Auth::id()) {
             return redirect()->route('users.index')
