@@ -1,25 +1,27 @@
-# Rencana Setup Proyek Laravel
+# Fitur Registrasi User
 
-Berikut adalah rencana high-level untuk men-setup proyek PHP dengan framework Laravel.
+## Deskripsi
+Menambahkan fitur registrasi user ke dalam aplikasi beserta penyiapan database MySQL menggunakan Docker.
 
-## Langkah-langkah
+## Kebutuhan Data (Tabel Users)
+Tabel user perlu memuat informasi berikut:
+- **Nama lengkap** (String)
+- **Email** (String, Unique)
+- **Password** (String, disimpan menggunakan enkripsi `bcrypt`)
 
-1.  **Inisialisasi Proyek Laravel:**
-    *   Gunakan `composer create-project` untuk membuat proyek Laravel baru.
+## Rencana Implementasi (High-Level)
 
-2.  **Halaman "Hello World":**
-    *   Definisikan rute utama (`/`) di `routes/web.php`.
-    *   Buat file view Blade sederhana (`welcome.blade.php`) yang menampilkan "Hello world".
-    *   Tambahkan beberapa style CSS inline atau internal di dalam file Blade untuk styling dasar.
+1. **Konfigurasi Database (Docker)**
+   - Menambahkan service `mysql` pada file `docker-compose.yml`.
+   - Mengatur kredensial database (seperti nama database, user, password, root password).
+   - Memastikan container aplikasi Laravel dapat terhubung dan mengakses container MySQL tersebut.
 
-3.  **Dockerisasi:**
-    *   Buat `Dockerfile` di root proyek.
-    *   Dockerfile akan menggunakan base image PHP (misalnya, `php:8.2-fpm`).
-    *   Konfigurasi akan menyalin file aplikasi, menginstal dependensi Composer, dan mengatur permission.
-    *   (Opsional) Buat file `docker-compose.yml` untuk memudahkan menjalankan aplikasi dengan web server seperti Nginx.
+2. **Backend & Database (Laravel)**
+   - Menyiapkan migration untuk tabel `users` (atau menyesuaikan migration bawaan Laravel) agar sesuai dengan kebutuhan data.
+   - Membuat controller untuk mengelola alur registrasi (menampilkan form dan memproses input pengguna).
+   - Menyimpan data ke database dengan memastikan password dienkripsi dengan `bcrypt` sebelum disimpan.
+   - Memperbarui file konfigurasi koneksi database (`.env`).
 
-## Kriteria Keberhasilan
-
-*   Aplikasi Laravel dapat diakses melalui browser di `http://localhost`.
-*   Halaman utama menampilkan tulisan "Hello world".
-*   Aplikasi dapat dibangun dan dijalankan menggunakan Docker.
+3. **Frontend (Tampilan)**
+   - Membuat halaman/view form registrasi menggunakan Blade template.
+   - Menggunakan styling CSS sederhana (internal/inline) untuk mempercantik form tanpa perlu instalasi via `npm` atau build tools tambahan.
