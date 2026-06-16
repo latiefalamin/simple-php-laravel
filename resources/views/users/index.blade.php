@@ -250,6 +250,39 @@
             font-size: 0.95rem;
         }
 
+        .alert-error {
+            background: rgba(248, 113, 113, 0.08);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #fca5a5;
+            font-size: 0.95rem;
+        }
+
+        .btn-delete {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.825rem;
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            transition: all 0.2s ease;
+            margin-left: 0.5rem;
+        }
+
+        .btn-delete:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            transform: translateY(-1px);
+        }
+
         @media (max-width: 640px) {
             .card {
                 padding: 2.5rem 1.5rem;
@@ -269,6 +302,12 @@
             @if (session('success'))
                 <div class="alert-success">
                     {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert-error">
+                    {{ session('error') }}
                 </div>
             @endif
 
@@ -320,6 +359,13 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                         Edit
                                     </a>
+
+                                    @if($user->id !== auth()->id())
+                                        <a href="{{ route('users.delete', $user->id) }}" class="btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna {{ $user->name }}?')">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                                            Hapus
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

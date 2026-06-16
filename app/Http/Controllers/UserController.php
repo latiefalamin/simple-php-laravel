@@ -66,4 +66,35 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success', 'Data user ' . $user->name . ' berhasil diperbarui.');
     }
+
+    /**
+     * Remove the specified user from storage.
+     */
+    public function delete($id)
+    {
+        if (!Auth::check()) {
+            abort(404);
+        }
+
+        // Prevent self deletion
+        if ($id == Auth::id()) {
+            return redirect()->route('users.index')
+                ->with('error', 'Anda tidak diperbolehkan menghapus akun Anda sendiri.');
+        }
+
+        $user = User::find($id);
+        if (!$user) {
+            return redirect()->route('users.index')
+                ->with('error', 'User tidak ditemukan atau sudah dihapus.');
+        }
+
+        try {
+            $user->delete();
+            return redirect()->route('users.index')
+                ->with('success', 'User ' . $user->name . ' berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')
+                ->with('error', 'Gagal menghapus user: ' . $e->getMessage());
+        }
+    }
 }
