@@ -1,3 +1,16 @@
+Prompt 5:
+Buatkan issue.md berisi rencana untuk halaman edit user:
+
+- Halaman ini akan mengedit data user: nama lengkap, dan alamat. email tidak boleh diedit.
+- halaman ini diakses dari halaman list user.
+- Halaman ini hanya bisa diakses oleh user yang sudah login. 
+- Jika ada user yang belum login maka akan diarahkan ke halaman 404.
+- Halaman ini cukup dengan style css sederhana saja. Jangan install apapun dengan npm.
+- Jika sukses update data, maka akan diarahkan ke halaman list user.
+- Jika gagal update data, maka akan menampilkan halaman edit user kembali dengan pesan error.
+
+Rencana jangan terlalu detail, cukup high level saja.
+
 Prompt 4:
 Buatkan issue.md berisi rencana untuk halaman list user:
 

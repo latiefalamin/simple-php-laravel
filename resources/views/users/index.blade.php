@@ -209,6 +209,47 @@
             font-size: 0.875rem;
         }
 
+        .address-cell {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-edit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.825rem;
+            color: #818cf8;
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            transform: translateY(-1px);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #34d399;
+            font-size: 0.95rem;
+        }
+
         @media (max-width: 640px) {
             .card {
                 padding: 2.5rem 1.5rem;
@@ -225,6 +266,12 @@
 
     <div class="container">
         <div class="card">
+            @if (session('success'))
+                <div class="alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="header-section">
                 <h1>Daftar Pengguna</h1>
                 <a href="/" class="btn-back">
@@ -239,7 +286,9 @@
                         <tr>
                             <th>Pengguna</th>
                             <th>Email</th>
+                            <th>Alamat</th>
                             <th>Tanggal Terdaftar</th>
+                            <th style="text-align: right;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -257,12 +306,25 @@
                                     <span class="user-email">{{ $user->email }}</span>
                                 </td>
                                 <td>
+                                    @if($user->address)
+                                        <span class="address-cell" title="{{ $user->address }}">{{ $user->address }}</span>
+                                    @else
+                                        <span class="address-cell" style="color: rgba(255,255,255,0.2); font-style: italic;">Belum diatur</span>
+                                    @endif
+                                </td>
+                                <td>
                                     <span class="date-cell">{{ $user->created_at->format('d M Y, H:i') }}</span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn-edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        Edit
+                                    </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                                <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 2rem;">
                                     Belum ada pengguna terdaftar.
                                 </td>
                             </tr>
