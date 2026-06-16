@@ -12,6 +12,8 @@ Project manajemen pengguna sederhana (CRUD User + Authentication) yang dibangun 
 
 ## 🚀 Cara Menjalankan Project
 
+### Opsi A: Menggunakan Docker (Rekomendasi)
+
 1. **Copy file environment:**
    Pastikan Anda sudah memiliki file `.env`. Jika belum, salin dari `.env.example`:
    ```bash
@@ -37,6 +39,40 @@ Project manajemen pengguna sederhana (CRUD User + Authentication) yang dibangun 
 
 5. **Akses Aplikasi:**
    Buka browser dan kunjungi: **[http://localhost](http://localhost)**
+
+### Opsi B: Tanpa Docker (Lokal)
+
+Pastikan Anda sudah menginstall **PHP 8.2+** dan **Composer** di sistem komputer Anda.
+
+1. **Install Dependencies:**
+   ```bash
+   composer install
+   ```
+
+2. **Copy file environment & Generate Key:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+3. **Konfigurasi Database:**
+   Buka file `.env` dan sesuaikan pengaturan database Anda. Jika menggunakan SQLite (paling praktis di lokal):
+   ```env
+   DB_CONNECTION=sqlite
+   # Hapus atau beri komentar baris konfigurasi DB_HOST, DB_PORT, dll
+   ```
+
+4. **Jalankan Migrasi Database:**
+   ```bash
+   php artisan migrate
+   ```
+
+5. **Jalankan Development Server:**
+   ```bash
+   php artisan serve
+   ```
+   Buka browser dan kunjungi: **[http://localhost:8000](http://localhost:8000)**
+
 
 ## 🧪 Cara Menjalankan Unit Test
 
