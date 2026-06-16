@@ -38,6 +38,15 @@ Project manajemen pengguna sederhana (CRUD User + Authentication) yang dibangun 
 5. **Akses Aplikasi:**
    Buka browser dan kunjungi: **[http://localhost](http://localhost)**
 
+## 🧪 Cara Menjalankan Unit Test
+
+Aplikasi ini dilengkapi dengan *Feature Tests* untuk memastikan keamanan dan fungsionalitas seluruh endpoint (Autentikasi & Manajemen Pengguna). Untuk menjalankan seluruh test case, jalankan perintah berikut:
+
+```bash
+docker compose exec app php artisan test
+```
+*(Catatan: Pengujian menggunakan database In-Memory SQLite secara otomatis, sehingga tidak akan mengganggu data utama).*
+
 ## 🗄 Detail Database & Tabel
 
 Konfigurasi database berjalan di dalam container MySQL:
