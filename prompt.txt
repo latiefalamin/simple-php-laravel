@@ -1,3 +1,10 @@
+Prompt 6:
+Buatkan file README.md berisi petunjuk cara menjalankan project ini.
+- Berisi tools apa saja yang digunakan.
+- Cara menjalankan project ini.
+- Detail database dan tabel.
+Petunjuk cukup singkat saja, tidak perlu terlalu detail.    
+
 Prompt 5:
 Buatkan issue.md berisi rencana untuk fitur hapus user:
 
