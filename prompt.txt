@@ -1,0 +1,11 @@
+Prompt 1:
+
+Buatkan issue.md berisi rencana untuk setup project php dengan framework laravel.
+
+Rencana yang disiapkan mencakup:
+- Setup aplikasi web dengan halaman root atau home berisi tulisan "Hello world".
+- Cukup gunakan style css sederhana saja. jangan install apapun dengan npm.
+- buatkan dockerfile.
+
+Rencana jangan terlalu detail, cukup high level saja.
+
