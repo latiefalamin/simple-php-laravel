@@ -363,15 +363,21 @@
                     <div class="auth-user">
                         Terautentikasi sebagai: <strong>{{ auth()->user()->name }}</strong>
                     </div>
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline-block; margin-top: 0.5rem;">
-                        @csrf
-                        <button type="submit" class="btn-action btn-logout">Keluar (Logout)</button>
-                    </form>
+                    <div style="margin-top: 1rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="{{ route('users.index') }}" class="btn-action btn-register">Lihat Daftar Pengguna</a>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            <button type="submit" class="btn-action btn-logout">Keluar (Logout)</button>
+                        </form>
+                    </div>
                 @else
                     <div class="auth-user" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                        Silakan daftarkan akun baru Anda untuk mencoba fitur registrasi database MySQL.
+                        Silakan daftarkan akun baru Anda atau masuk dengan akun terdaftar untuk mencoba fitur aplikasi.
                     </div>
-                    <a href="{{ route('register') }}" class="btn-action btn-register">Daftar Akun Baru</a>
+                    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="{{ route('register') }}" class="btn-action btn-register">Daftar Akun Baru</a>
+                        <a href="{{ route('login') }}" class="btn-action btn-logout" style="border-color: rgba(99, 102, 241, 0.4); color: #a5b4fc; background: rgba(99, 102, 241, 0.05); text-align: center;">Masuk (Login)</a>
+                    </div>
                 @endauth
             </div>
 
