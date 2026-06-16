@@ -1,3 +1,31 @@
+Prompt 3:
+Buatkan issue.md berisi rencana untuk fitur login user:
+
+Login user menggunakan email dan password yang sudah terdaftar.
+
+Halaman login cukup dengan style css sederhana saja. Jangan install apapun dengan npm.
+
+Jika sukses login akan masuk ke halaman welcome.
+
+Jika gagal login akan menampilkan halaman login kembali dengan pesan error.  
+
+Rencana jangan terlalu detail, cukup high level saja.
+
+
+Prompt 2:
+Buatkan issue.md berisi rencana untuk fitur registrasi user:
+
+Data user berisi:
+- Nama lengkap
+- Email
+- Password: disimpan dalam database dengan enkripsi bcrypt.
+
+Buatkan mysql di docker-compose.yaml yang dapat di akses dari container laravel.
+
+Halaman registrasi cukup dengan style css sederhana saja. Jangan install apapun dengan npm.
+
+Rencana jangan terlalu detail, cukup high level saja.
+
 Prompt 1:
 
 Buatkan issue.md berisi rencana untuk setup project php dengan framework laravel.
