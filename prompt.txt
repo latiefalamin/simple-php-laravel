@@ -1,3 +1,14 @@
+Prompt 4:
+Buatkan issue.md berisi rencana untuk halaman list user:
+
+- Halaman ini akan menampilkan data user yang sudah terdaftar.
+- Halaman ini hanya bisa diakses oleh user yang sudah login. 
+- Jika ada user yang belum login maka akan diarahkan ke halaman 404.
+- Halaman ini cukup dengan style css sederhana saja. Jangan install apapun dengan npm.
+
+Rencana jangan terlalu detail, cukup high level saja.
+
+
 Prompt 3:
 Buatkan issue.md berisi rencana untuk fitur login user:
 
