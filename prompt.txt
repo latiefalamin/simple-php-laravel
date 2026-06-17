@@ -1,3 +1,8 @@
+Prompt 7:
+Buatkan issue.md yang berisi rencana unit test untuk semua endpoint yang ada.
+Tambahkan juga di README.md cara menjalankan unit test tersebut.
+Rencana jangan terlalu detail, cukup high level saja.
+
 Prompt 6:
 Buatkan file README.md berisi petunjuk cara menjalankan project ini.
 - Berisi tools apa saja yang digunakan.
