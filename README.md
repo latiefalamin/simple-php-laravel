@@ -93,7 +93,6 @@ Konfigurasi database berjalan di dalam container MySQL:
 
 **Tabel Utama: `users`**
 Tabel ini digunakan untuk menyimpan data pengguna terdaftar beserta autentikasinya.
-- **Kolom:**
   - `id` (Primary Key)
   - `name` (String, Nama Lengkap)
   - `email` (String, Unik)
@@ -102,3 +101,70 @@ Tabel ini digunakan untuk menyimpan data pengguna terdaftar beserta autentikasin
   - `remember_token` (String)
   - `created_at` (Timestamp)
   - `updated_at` (Timestamp)
+
+## ☁️ Deploy ke Hostinger Shared Hosting
+
+### Persiapan Lokal
+
+1. **Build untuk production:**
+   ```bash
+   composer install --optimize-autoloader --no-dev
+   npm install && npm run build
+   ```
+
+2. **Buat ZIP untuk upload** (kecualikan `.git`, `node_modules`, `.env`, `docker-compose.yml`, `Dockerfile`):
+   ```bash
+   zip -r ../deploy.zip . \
+     --exclude "*.git*" --exclude "*/node_modules/*" \
+     --exclude ".env" --exclude "docker-compose.yml" \
+     --exclude "Dockerfile" --exclude "nginx/*"
+   ```
+
+### Setup di Hostinger
+
+1. **Upload ZIP** via File Manager hPanel ke folder `~/laravel/`, lalu Extract.
+
+2. **Upload ke `public_html/`** dua file berikut dari `_hostinger_files/public_html/`:
+   - `index.php` — mengarahkan request ke folder Laravel
+   - `.htaccess` — mengatur Apache routing
+
+3. **Set PHP ke versi 8.4** via hPanel → Tingkat Lanjut → Konfigurasi PHP.
+
+4. **Buat database MySQL** via hPanel → Database → MySQL Databases:
+   - Buat database baru (misal: `vibecoding`) → Hostinger prefix otomatis
+   - Buat user MySQL dengan password
+   - Assign user ke database dengan **All Privileges**
+
+5. **Buat file `.env`** di folder `~/laravel/` berdasarkan `.env.example`:
+   ```env
+   APP_ENV=production
+   APP_DEBUG=false
+   APP_URL=https://domain-anda.com
+
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_DATABASE=u[id]_vibecoding
+   DB_USERNAME=u[id]_vibecoding
+   DB_PASSWORD=password_anda
+   ```
+
+6. **Jalankan Artisan Commands** — pilih salah satu opsi:
+
+   **Opsi A: Jika Terminal tersedia** (hPanel → Tingkat Lanjut → Terminal):
+   ```bash
+   cd ~/laravel
+   php artisan key:generate
+   php artisan migrate --force
+   php artisan config:cache
+   php artisan route:cache
+   php artisan view:cache
+   chmod -R 775 storage bootstrap/cache
+   ```
+
+   **Opsi B: Jika Terminal TIDAK tersedia** (via browser):
+   - Upload `_hostinger_files/setup.php` ke `public_html/`
+   - Buka di browser: `https://domain-anda.com/setup.php?secret=vibecoding_setup_2024`
+   - Script akan otomatis menjalankan semua perintah di atas
+   - **⚠️ Hapus `setup.php` segera setelah selesai!**
+
+
